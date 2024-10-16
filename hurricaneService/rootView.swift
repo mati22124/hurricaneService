@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
+    @State var isPresented = false
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -15,7 +18,12 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
             Text("Hello, world!")
         }
-        .padding()
+        .onAppear(perform: {
+            isPresented = Auth.auth().currentUser == nil
+        })
+        .fullScreenCover(isPresented: $isPresented) {
+            SignInView(showLoginView: $isPresented)
+        }
     }
 }
 
