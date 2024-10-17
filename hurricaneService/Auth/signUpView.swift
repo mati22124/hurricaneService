@@ -34,7 +34,7 @@ struct signUpView: View {
                         .frame(width: 60, height: 60)
                         .foregroundColor(accentColor)
                     
-                    Text("Stormwaycj")
+                    Text("storm Watch")
                         .font(.custom("ProductSans-Bold", size: 40))
                         .foregroundColor(.white)
                 }
