@@ -9,11 +9,7 @@ import SwiftUI
 import Firebase
 
 
-struct signUpView: View {
-    @State private var email = ""
-    @State private var password = ""
-    @State private var confirmPassword = ""
-    
+struct signUpView: View {    
     @Binding var showSignUpView: Bool
     @Binding var showLoginView: Bool
     

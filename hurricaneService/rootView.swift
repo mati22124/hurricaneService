@@ -8,16 +8,11 @@
 import SwiftUI
 import FirebaseAuth
 
-struct ContentView: View {
+struct rootView: View {
     @State var isPresented = false
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
+        mainView(showLoginView: $isPresented)
         .onAppear(perform: {
             isPresented = Auth.auth().currentUser == nil
         })
@@ -28,5 +23,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    rootView()
 }

@@ -32,7 +32,7 @@ struct hurricaneServiceApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            rootView()
         }
     }
 }
