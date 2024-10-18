@@ -24,27 +24,19 @@ struct mainView: View {
                  4. map
                  5. settings
                  */
-                Text("posts")
+                postsView()
                 .tag(0)
                 
-                Text("friends")
+                friendsView()
                 .tag(1)
                 
-                Text("home")
+                NearbySheletersView()
                 .tag(2)
                 
-                Text("map")
+                mapView()
                 .tag(3)
                 
-                VStack {
-                    Text("settings")
-                    Button {
-                        try? authManager.shared.signOut()
-                        showLoginView = true
-                    } label: {
-                        Text("Sign Out")
-                    }
-                }
+                settingsView(showLoginView: $showLoginView)
                 .tag(4)
             }
             
@@ -63,7 +55,7 @@ struct mainView: View {
             .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
             .padding(.horizontal)
         }
-        .background(Color.blue)    }
+        .background(Color.darkPurp)    }
     
     func getImageName(for index: Int) -> String {
         switch index {
@@ -112,7 +104,7 @@ struct TabBarItem: View {
             .foregroundColor(isSelected ? .white : .gray)
             .padding(.vertical, 10)
             .padding(.horizontal, isSelected ? 16 : 12)
-            .background(isSelected ? Color.blue : Color.clear)
+            .background(isSelected ? Color.accentOrange : Color.clear)
             .clipShape(Capsule())
         }
     }
