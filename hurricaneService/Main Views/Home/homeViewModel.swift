@@ -20,7 +20,6 @@ final class homeViewModel: ObservableObject {
     
     func findDistance(current currentLoc: CLLocation?, shelter: Shelter) -> String {
         let miles = shelter.location.distance(from: currentLoc ?? shelter.location)*0.00062137119224
-        print(miles)
         if miles == 0  {
             return "Distance not available"
         }

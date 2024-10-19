@@ -14,14 +14,20 @@ struct NearbySheletersView: View {
     
     @StateObject var viewModel = homeViewModel()
     
+    @StateObject var locManager = LocationManager()
+
+    
     var body: some View {
         ScrollView {
             ForEach(viewModel.shelters) { shelter in
-                ShelterRow(shelter: shelter, accentColor: accentColor)
+                ShelterRow(shelter: shelter, accentColor: accentColor, curLoc: locManager.lastKnownLocation)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 5)
                     .environmentObject(viewModel)
             }
+        }
+        .onAppear() {
+            locManager.checkLocationAuthorization()
         }
         .background(Color.darkPurp)
         .scrollContentBackground(.hidden)
@@ -31,8 +37,7 @@ struct NearbySheletersView: View {
 struct ShelterRow: View {
     let shelter: Shelter
     let accentColor: Color
-    
-    @StateObject var locManager = LocationManager()
+    let curLoc: CLLocation?
     
     @EnvironmentObject var viewModel: homeViewModel
     
@@ -44,7 +49,7 @@ struct ShelterRow: View {
             HStack {
                 Image(systemName: "location.circle.fill")
                     .foregroundColor(accentColor)
-                Text("\(viewModel.findDistance(current: locManager.lastKnownLocation, shelter: shelter))")
+                Text("\(viewModel.findDistance(current: curLoc, shelter: shelter))")
                     .font(.custom("ProductSans-Regular", size: 14))
                     .foregroundColor(.white)
             }
