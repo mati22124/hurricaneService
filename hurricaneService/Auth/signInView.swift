@@ -130,7 +130,21 @@ struct SignInView: View {
                             }
                         }
                     } label: {
-                        SignInWithAppleButtonViewRepresentable(type: .signIn, style: .white)
+                        HStack {
+                            Image("appleLogo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(.red)
+                            Text("Sign in with Apple")
+                                .font(.custom("ProductSans-Bold", size: 18))
+                        }
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white)
+                        .clipShape(Capsule())
+                        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
                     }
                     .clipShape(Capsule())
                     .frame(height: 60)

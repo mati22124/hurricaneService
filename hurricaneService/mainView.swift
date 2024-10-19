@@ -15,8 +15,7 @@ struct mainView: View {
     var body: some View {
         VStack {
             // Content area
-            TabView(selection: $selectedTab) {
-                
+            switch selectedTab {
                 /* tabs to add
                  1. posts
                  2. friends
@@ -24,20 +23,21 @@ struct mainView: View {
                  4. map
                  5. settings
                  */
+            case 0:
                 postsView()
-                .tag(0)
-                
+            case 1:
                 friendsView()
-                .tag(1)
-                
-                NearbySheletersView()
-                .tag(2)
-                
+            case 2:
+                NavigationStack {
+                    NearbySheletersView()
+                        .navigationTitle("Nearby Sheleters")
+                }
+            case 3:
                 mapView()
-                .tag(3)
-                
+            case 4:
                 settingsView(showLoginView: $showLoginView)
-                .tag(4)
+            default:
+                Text("idk how u got here but thats impressive")
             }
             
             // Custom capsule-shaped tab bar
@@ -80,10 +80,6 @@ struct mainView: View {
     }
 }
 
-#Preview {
-    mainView(showLoginView: .constant(false))
-}
-
 struct TabBarItem: View {
     let imageName: String
     let title: String
@@ -108,4 +104,8 @@ struct TabBarItem: View {
             .clipShape(Capsule())
         }
     }
+}
+
+#Preview {
+    mainView(showLoginView: .constant(false))
 }
