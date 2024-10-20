@@ -22,7 +22,7 @@
 		A4939EBC2CB960FD004812BE /* Exceptions for "hurricaneService" folder in "hurricaneService" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Helpers/doubleexten.swift,
+				Extra/Helpers/doubleexten.swift,
 				Info.plist,
 			);
 			target = A473A64F2CB63489009E924A /* hurricaneService */;
@@ -34,7 +34,7 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = A473A64E2CB63489009E924A /* Resources */;
 			membershipExceptions = (
-				Helpers/doubleexten.swift,
+				Extra/Helpers/doubleexten.swift,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
