@@ -159,6 +159,14 @@ final class signUpViewModel: ObservableObject {
             throw authError.passwordsNoMatch
         }
         
-        let _ = try await authManager.shared.createUser(email: email, password: password)
+        let authResult = try await authManager.shared.createAuthResult(email: email, password: password)
+        
+        
+        let user = DBUser(authDataResult: authResult)
+    
+        try  UserManager.shared.createNewUser(user: user)
+        
     }
+    
+    
 }
