@@ -35,6 +35,7 @@ final class signInViewModel: NSObject, ObservableObject {
         }
         
         let _ = try await authManager.shared.signIn(email: email, password: password)
+        //dont need to check here its just email
     }
     
     func signInGoogle() async throws {
@@ -51,8 +52,15 @@ final class signInViewModel: NSObject, ObservableObject {
             throw URLError(.badURL)
         }
         
-        let _ = try await authManager.shared.signInWithCredential(idToken: idToken, accessToken: accessToken)
+        let authResult = try await authManager.shared.signInWithCredential(idToken: idToken, accessToken: accessToken)
+        
+        //Only creates user if person never signed up with google before
+        //MARK: What if user signs in with email first? Then google? will it save data from emai. Do we need to worry about this only congressional app/ same with apple sign in btw
+        try? await createUser(authResult: authResult)
+        
     }
+    
+    
     
     func signInApple() async throws {
         startSignInWithAppleFlow()
@@ -124,9 +132,13 @@ extension signInViewModel: ASAuthorizationControllerDelegate {
           // Initialize a Firebase credential, including the user's full name.
           Task {
               do {
-                  let _ = try await authManager.shared.signInWithApple(withIDToken: idTokenString,
+                  let authResult = try await authManager.shared.signInWithApple(withIDToken: idTokenString,
                                                                        rawNonce: nonce,
                                                                        fullName: appleIDCredential.fullName)
+                  
+                  try await createUser(authResult: authResult)
+                  //MARK: this could break apple sign in
+                  
                   self.signedInWithApple = true
               } catch {
                   print("error \(error)")
@@ -139,8 +151,47 @@ extension signInViewModel: ASAuthorizationControllerDelegate {
     // Handle error.
     print("Sign in with Apple errored: \(error)")
   }
+    
+    
+    
+    //Does the apple or google account alr exist, bc cant make new suser everytime
+    func createUser(authResult: authResult) async throws{
+        //does the user alr exist
+        do {
+            //does it return a user?
+            let _ = try await UserManager.shared.getUser(userId: authResult.uid)
+        } catch {
+            let user = DBUser(authDataResult: authResult)
+            try  UserManager.shared.createNewUser(user: user)
+        }
+
+       
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @MainActor
 final class signUpViewModel: ObservableObject {
