@@ -14,13 +14,11 @@ struct settingsView: View {
     @StateObject private var settingsViewModel = SettingsViewModel()
     
     @Binding var showLoginView: Bool
-    
-    @State var isPresented: Bool = false
-    
+
     var body: some View {
         VStack {
             if let user = settingsViewModel.user {
-                Text("Name:"+user.email)
+                Text("Name: "+user.email)
                 Button {
                     try? settingsViewModel.logOut()
                     showLoginView = true
