@@ -8,13 +8,22 @@ struct NearbySheletersView: View {
     @StateObject var viewModel = homeViewModel()
     @StateObject var locManager = LocationManager()
     
+    var sortedShelters: [Shelter] {
+        let distSorted = viewModel.shelters.sorted { viewModel.findDistance(current: locManager.lastKnownLocation, shelter: $0) < viewModel.findDistance(current: locManager.lastKnownLocation, shelter: $1) }
+        let slice = distSorted.prefix(50)
+        return Array(slice)
+    }
+    
     var body: some View {
-        ScrollView {
-            ForEach(viewModel.shelters) { shelter in
-                ShelterRow(shelter: shelter, accentColor: accentColor, curLoc: locManager.lastKnownLocation)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 5)
-                    .environmentObject(viewModel)
+        ZStack {
+            Color.darkPurp.ignoresSafeArea(.all)
+            ScrollView {
+                ForEach(sortedShelters) { shelter in
+                    ShelterRow(shelter: shelter, accentColor: accentColor, curLoc: locManager.lastKnownLocation)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 5)
+                        .environmentObject(viewModel)
+                }
             }
         }
         .onAppear() {

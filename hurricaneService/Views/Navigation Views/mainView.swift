@@ -26,23 +26,22 @@ struct mainView: View {
             case 0:
                 postsView()
             case 1:
-                friendsView()
-            case 2:
                 NavigationStack {
                     NearbySheletersView()
                         .navigationTitle("Nearby Sheleters")
+                        .navigationBarTitleTextColor(.white)
                 }
-            case 3:
+            case 2:
                 mapView()
-            case 4:
-                settingsView(showLoginView: $showLoginView)
+            case 3:
+                SettingsView(showLoginView: $showLoginView)
             default:
                 Text("idk how u got here but thats impressive")
             }
             
             // Custom capsule-shaped tab bar
             HStack {
-                ForEach(0..<5) { index in
+                ForEach(0..<4) { index in
                     TabBarItem(imageName: getImageName(for: index),
                                title: getTitle(for: index),
                                isSelected: selectedTab == index,
@@ -61,10 +60,9 @@ struct mainView: View {
     func getImageName(for index: Int) -> String {
         switch index {
         case 0: return "camera.aperture"
-        case 1: return "person.2.fill"
-        case 2: return "house.fill"
-        case 3: return "map.fill"
-        case 4: return "gear"
+        case 1: return "house.fill"
+        case 2: return "map.fill"
+        case 3: return "gear"
         default: return ""
         }
     }
@@ -72,10 +70,9 @@ struct mainView: View {
     func getTitle(for index: Int) -> String {
         switch index {
         case 0: return "Posts"
-        case 1: return "Friends"
-        case 2: return "Home"
-        case 3: return "Map"
-        case 4: return "Settings"
+        case 1: return "Home"
+        case 2: return "Map"
+        case 3: return "Settings"
         default: return ""
         }
     }
@@ -92,12 +89,12 @@ struct TabBarItem: View {
             HStack(spacing: 10) {
                 Image(systemName: imageName)
                     .font(.system(size: 20))
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.textColo)
                 if isSelected {
                     Text(title)
                         .font(.caption)
                         .fontWeight(.bold)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.textColo)
                 }
             }
             .foregroundColor(isSelected ? .white : .gray)

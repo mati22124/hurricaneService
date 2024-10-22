@@ -9,6 +9,7 @@ import Foundation
 import CoreLocation
 import MapKit
 
+@MainActor
 final class homeViewModel: ObservableObject {
     @Published var locManager = LocationManager()
     
