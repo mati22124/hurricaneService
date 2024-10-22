@@ -54,6 +54,7 @@ struct mainView: View {
             .clipShape(Capsule())
             .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
             .padding(.horizontal)
+            .offset(x: 0, y: 12)
         }
         .background(Color.darkPurp)    }
     
