@@ -8,7 +8,7 @@
 import Foundation
 
 struct Shelter: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let name: String
     let latitude: Double
     let longitude: Double

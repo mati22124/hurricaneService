@@ -18,7 +18,14 @@ struct NearbySheletersView: View {
             }
         }
         .onAppear() {
-            locManager.checkLocationAuthorization()
+            Task {
+                do {
+                    try await viewModel.getShelters()
+                    locManager.checkLocationAuthorization()
+                } catch {
+                    print("Error fetching shelters: \(error)")
+                }
+            }
         }
         .background(Color.darkPurp)
         .scrollContentBackground(.hidden)
@@ -70,7 +77,6 @@ struct ShelterRow: View {
         }
     }
 }
-
 struct SupplyIndicator: View {
     let item: String
     let quantity: Int
