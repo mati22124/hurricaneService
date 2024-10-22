@@ -25,12 +25,12 @@ final class shelterManager {
     }
     
     func addShelter(_ shelter: Shelter) throws {
-        try db.collection("shelters").addDocument(from: shelter)
+        try db.collection("shelters").document(shelter.id).setData(from: shelter)
     }
     
-    func addShelters(_ shelter: [Shelter])  throws {
-        for shelter in shelter {
-            try db.collection("shelters").addDocument(from: shelter)
+    func addShelters(_ shelters: [Shelter])  throws {
+        for shelter in shelters {
+            try db.collection("shelters").document(shelter.id).setData(from: shelter)
         }
     }
 }

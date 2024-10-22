@@ -27,9 +27,12 @@ struct settingsView: View {
             .padding()
             
             HStack {
-                settingsButton(text: "Logout")
+                settingsButton(text: "Logout", action: {
+                    try? settingsViewModel.logOut()
+                    showLoginView = true
+                })
                 
-                settingsButton(text: "Delete Account")
+                settingsButton(text: "Delete Account", action: {})
             }
            
                 
@@ -53,7 +56,6 @@ struct settingsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.darkPurp)
         .task {
-            
             do {
                 try await settingsViewModel.loadCurrentUser()
             }catch {
@@ -134,9 +136,11 @@ struct settingsButton: View {
     
     var color: Color = .red
     
+    var action: () -> Void
+    
     var body: some View {
         
-        
+        Button(action: action, label: {
             ZStack {
                 
                 RoundedRectangle(cornerRadius: 8)
@@ -151,6 +155,7 @@ struct settingsButton: View {
                 
             }
             .padding()
+        })
         
       
      
