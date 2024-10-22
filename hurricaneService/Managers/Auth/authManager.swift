@@ -41,6 +41,11 @@ final class authManager {
         try Auth.auth().signOut()
     }
     
+    func deleteAccount() async throws {
+        guard let x = Auth.auth().currentUser else { throw authError.noUser }
+        try await Auth.auth().currentUser!.delete()
+    }
+    
     func signIn(email: String, password: String) async throws -> authResult {
         let authResultt = try await Auth.auth().signIn(withEmail: email, password: password)
         return authResult(user: authResultt.user)

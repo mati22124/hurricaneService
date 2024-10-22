@@ -29,11 +29,12 @@ struct mainView: View {
                 NavigationStack {
                     NearbySheletersView()
                         .navigationTitle("Nearby Sheleters")
+                        .navigationBarTitleTextColor(.white)
                 }
             case 2:
                 mapView()
             case 3:
-                settingsView(showLoginView: $showLoginView)
+                SettingsView(showLoginView: $showLoginView)
             default:
                 Text("idk how u got here but thats impressive")
             }
