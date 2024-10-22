@@ -6,7 +6,6 @@
 //
 
 /*
- - Add button to map for current location
  - when shelters finish add secondary view for more information with inbuilt map
  - check surajs posts backend
  - create device

@@ -22,6 +22,9 @@ struct mapView: View {
                 Marker(shelter.name, coordinate: CLLocationCoordinate2D(latitude: shelter.latitude, longitude: shelter.longitude))
             }
         }
+        .mapControls({
+            MapUserLocationButton().padding()
+        })
         .onAppear() {
             locManager.checkLocationAuthorization()
             Task {
