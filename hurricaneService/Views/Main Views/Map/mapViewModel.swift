@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 
+@MainActor
 final class mapViewModel: ObservableObject {
     @Published var locManager = LocationManager()
     

@@ -14,14 +14,12 @@ struct mapView: View {
     @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
     
     var body: some View {
-        VStack {
-            if let lastKnownLocation = locManager.lastKnownLocation {
-                Map(position: $position) {
-                    UserAnnotation()
-                    ForEach(viewModel.shelters) { shelter in
-                        Marker(shelter.name, coordinate: CLLocationCoordinate2D(latitude: shelter.latitude, longitude: shelter.longitude))
-                    }
-                }
+        Map(position: $position) {
+            
+            UserAnnotation()
+            
+            ForEach(viewModel.shelters) { shelter in
+                Marker(shelter.name, coordinate: CLLocationCoordinate2D(latitude: shelter.latitude, longitude: shelter.longitude))
             }
         }
         .onAppear() {
