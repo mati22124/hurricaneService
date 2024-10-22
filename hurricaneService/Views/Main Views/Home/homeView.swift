@@ -1,21 +1,12 @@
 import SwiftUI
 import MapKit
 
-struct Shelter: Identifiable {
-    let id = UUID()
-    let name: String
-    let location: CLLocation
-    let supplies: [String: Int]
-}
-
 struct NearbySheletersView: View {
     let backgroundColor = Color(red: 0.2, green: 0.2, blue: 0.5) // Dark storm blue
     let accentColor = Color(red: 1.0, green: 0.6, blue: 0.0) // Warning orange
     
     @StateObject var viewModel = homeViewModel()
-    
     @StateObject var locManager = LocationManager()
-
     
     var body: some View {
         ScrollView {
@@ -27,7 +18,14 @@ struct NearbySheletersView: View {
             }
         }
         .onAppear() {
-            locManager.checkLocationAuthorization()
+            Task {
+                do {
+                    try await viewModel.getShelters()
+                    locManager.checkLocationAuthorization()
+                } catch {
+                    print("Error fetching shelters: \(error)")
+                }
+            }
         }
         .background(Color.darkPurp)
         .scrollContentBackground(.hidden)
@@ -61,7 +59,7 @@ struct ShelterRow: View {
             }
             
             Button(action: {
-                viewModel.openInMaps(coordinate: shelter.location, name: shelter.name)
+                viewModel.openInMaps(coordinate: CLLocation(latitude: shelter.latitude, longitude: shelter.longitude), name: shelter.name)
             }) {
                 Text("Open in Maps")
                     .font(.custom("ProductSans-Bold", size: 14))
@@ -79,7 +77,6 @@ struct ShelterRow: View {
         }
     }
 }
-
 struct SupplyIndicator: View {
     let item: String
     let quantity: Int
