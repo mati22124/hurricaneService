@@ -8,12 +8,24 @@
 import SwiftUI
 
 struct postsView: View {
+    
+    // ViewModel
+    @StateObject private var postViewModel = PostsViewModel()
+    
     var body: some View {
         VStack {
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.darkPurp)
+        .task {
+            do {
+                try await postViewModel.getAllPosts()
+            }catch {
+                print("didnt get all posts")
+            }
+            
+        }
     }
 }
 

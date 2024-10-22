@@ -15,7 +15,7 @@ struct DBUser: Codable, Identifiable, Hashable {
     let photoURL: String?
     let photoPath: String?
     
-   
+    let postsId: [String]
     
     init(authDataResult: authResult) {
         
@@ -27,8 +27,19 @@ struct DBUser: Codable, Identifiable, Hashable {
         self.photoPath = ""
         self.photoURL = authDataResult.photoURL
         
+        self.postsId = []
         
         
     }
 
+}
+
+
+
+struct DBPost: Codable, Identifiable, Hashable {
+    let id: String
+    let title: String
+    let body: String
+    let author: String
+    
 }

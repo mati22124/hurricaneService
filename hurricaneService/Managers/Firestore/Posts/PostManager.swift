@@ -13,13 +13,7 @@ import FirebaseFirestore
 
 
 
-struct DBPost: Codable, Identifiable, Hashable {
-    let id: String
-    let title: String
-    let body: String
-    let author: String
-    let createdAt: Date
-}
+
 
 
 
