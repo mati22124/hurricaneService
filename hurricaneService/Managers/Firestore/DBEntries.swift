@@ -43,3 +43,10 @@ struct DBPost: Codable, Identifiable, Hashable {
     let author: String
     
 }
+
+
+struct DBUsersPost: Codable, Identifiable, Hashable {
+    let id: String
+    let userId: String
+    let postId: String
+}

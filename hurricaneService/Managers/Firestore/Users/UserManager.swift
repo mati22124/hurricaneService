@@ -35,7 +35,17 @@ final class UserManager {
 
 
 
-
+extension UserManager {
+    private func UsersPostsCollection(userId: String) -> CollectionReference {
+        userDocument(userId: userId).collection("posts")
+        
+    }
+    
+    private func UserPostDocument(userId: String, userPostId:String) -> DocumentReference {
+        UsersPostsCollection(userId: userId).document(userPostId)
+        
+    }
+}
 
 
 
@@ -57,6 +67,11 @@ extension UserManager {
     func createNewUser(user:DBUser)  throws {
         try  userDocument(userId: user.id).setData(from: user,merge: false)
         print("user in database created")
+    }
+    
+    
+    func addUsersPost(userId: String, usersPost: DBUsersPost) throws {
+        try UserPostDocument(userId: userId, userPostId: usersPost.id).setData(from: usersPost, merge: false)
     }
 
 }
@@ -92,7 +107,25 @@ extension UserManager {
     
     
    
-   
+
+    func getAllUsersPostsId(userId: String) async throws -> [DBUsersPost] {
+        
+        try await UsersPostsCollection(userId: userId).getDocuments(as: DBUsersPost.self)
+        
+    }
+    
+    
+    func getAllUsersPosts(userId:String) async throws -> [DBPost] {
+        let postsIds = try await getAllUsersPostsId(userId: userId)
+        var posts: [DBPost] = []
+        for postId in postsIds {
+            let post = try await PostManager.shared.getPost(postId: postId.postId)
+            posts.append(post)
+        }
+        return posts
+        
+    }
+    
    
 }
 
