@@ -18,7 +18,7 @@ struct DBPost: Codable, Identifiable, Hashable {
     let title: String
     let body: String
     let author: String
-    let createdAt: Date
+    
 }
 
 
