@@ -14,18 +14,11 @@ struct postsView: View {
     
     var body: some View {
         VStack {
-            Button {
-               
-            try? postViewModel.createPost(title: "Hello World", body: "This is a test post", author: "Mayank Tiku")
-                
-            }label: {
-                Text("Create Post")
-            }
-          
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.darkPurp)
-        .task {
+        /*.task {
             do {
                 try await postViewModel.loadCurrentUser()
                 try await postViewModel.getAllPosts()
@@ -34,10 +27,22 @@ struct postsView: View {
                 print("didnt get all posts or didnt get user")
             }
             
-        }
+         }*/
     }
 }
 
 #Preview {
     postsView()
 }
+
+/*
+VStack {
+    Button {
+       
+    try? postViewModel.createPost(title: "Hello World", body: "This is a test post", author: "Mayank Tiku")
+        
+    }label: {
+        Text("Create Post")
+    }
+  
+} */
