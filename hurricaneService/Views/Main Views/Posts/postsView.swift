@@ -18,6 +18,14 @@ struct postsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.darkPurp)
+        .task {
+            do {
+                try await postViewModel.getAllPosts()
+            }catch {
+                print("didnt get all posts")
+            }
+            
+        }
     }
 }
 

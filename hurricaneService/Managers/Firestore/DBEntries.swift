@@ -32,3 +32,13 @@ struct DBUser: Codable, Identifiable, Hashable {
     }
 
 }
+
+
+
+struct DBPost: Codable, Identifiable, Hashable {
+    let id: String
+    let title: String
+    let body: String
+    let author: String
+    
+}
