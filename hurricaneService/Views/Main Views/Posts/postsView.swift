@@ -14,15 +14,24 @@ struct postsView: View {
     
     var body: some View {
         VStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            Button {
+               
+            try? postViewModel.createPost(title: "Hello World", body: "This is a test post", author: "Mayank Tiku")
+                
+            }label: {
+                Text("Create Post")
+            }
+          
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.darkPurp)
         .task {
             do {
+                try await postViewModel.loadCurrentUser()
                 try await postViewModel.getAllPosts()
+                
             }catch {
-                print("didnt get all posts")
+                print("didnt get all posts or didnt get user")
             }
             
         }

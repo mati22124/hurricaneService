@@ -14,8 +14,7 @@ struct DBUser: Codable, Identifiable, Hashable {
     //Photo
     let photoURL: String?
     let photoPath: String?
-    
-    let postsId: [String]
+
     
     init(authDataResult: authResult) {
         
@@ -26,8 +25,6 @@ struct DBUser: Codable, Identifiable, Hashable {
         //just the defualt user
         self.photoPath = ""
         self.photoURL = authDataResult.photoURL
-        
-        self.postsId = []
         
         
     }
