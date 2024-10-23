@@ -12,6 +12,7 @@
 		A4939EA32CB95DE6004812BE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A4939EA22CB95DE6004812BE /* FirebaseFirestore */; };
 		A4939EB22CB95F98004812BE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A4939EB12CB95F98004812BE /* GoogleSignIn */; };
 		A4939EB42CB95F98004812BE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A4939EB32CB95F98004812BE /* GoogleSignInSwift */; };
+		F36D04A52CC97674003C0055 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F36D04A42CC97674003C0055 /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 				A4939EB22CB95F98004812BE /* GoogleSignIn in Frameworks */,
 				A4939EA12CB95DE6004812BE /* FirebaseAuth in Frameworks */,
 				A4939EA32CB95DE6004812BE /* FirebaseFirestore in Frameworks */,
+				F36D04A52CC97674003C0055 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				A473A6522CB63489009E924A /* hurricaneService */,
+				F36D04A32CC97674003C0055 /* Frameworks */,
 				A473A6512CB63489009E924A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,6 +84,13 @@
 				A473A6502CB63489009E924A /* hurricaneService.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F36D04A32CC97674003C0055 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,6 +118,7 @@
 				A4939EA22CB95DE6004812BE /* FirebaseFirestore */,
 				A4939EB12CB95F98004812BE /* GoogleSignIn */,
 				A4939EB32CB95F98004812BE /* GoogleSignInSwift */,
+				F36D04A42CC97674003C0055 /* FirebaseStorage */,
 			);
 			productName = hurricaneService;
 			productReference = A473A6502CB63489009E924A /* hurricaneService.app */;
@@ -304,6 +315,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = hurricaneService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Storm Guard";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs Location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -336,6 +348,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = hurricaneService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Storm Guard";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs Location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -422,6 +435,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A4939EB02CB95F98004812BE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		F36D04A42CC97674003C0055 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A4939E9D2CB95DE6004812BE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
