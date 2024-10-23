@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 
 struct AddPostView: View {
@@ -15,6 +16,9 @@ struct AddPostView: View {
     @State private var isLoading = false
     
     @StateObject var postsViewModel = PostsViewModel()
+    
+    //user profile image data holder
+    @State private var selectedPhoto: PhotosPickerItem? = nil
     
     var body: some View {
         NavigationView {
@@ -29,6 +33,10 @@ struct AddPostView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                         )
+                    
+                    //Post
+                    AddImageView(selectedItem: $selectedPhoto)
+                        .environmentObject(postsViewModel)
                 }
                 .task {
                     do {
@@ -51,32 +59,101 @@ struct AddPostView: View {
                 .disabled(postTitle.isEmpty || postContent.isEmpty)
             )
             
-            .overlay {
-                if isLoading {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color.black.opacity(0.4))
-                }
-            }
+            
         }
     }
     
     private func submitPost() {
         Task {
-            isLoading = true
+          
             
             do {
-                try  postsViewModel.createPost(title: postTitle, body: postContent, topic: "nil")
+                if let photo = selectedPhoto {
+                    try await postsViewModel.createPost(title: postTitle, body: postContent, topic: "nil",photo: photo)
+                }
+                dismiss()
+              
             }catch {
                 print("couldnt add post")
             }
             
-            isLoading = false
+          
         }
         
     }
 }
+
+
+
+struct AddImageView: View {
+    
+    @Binding var selectedItem: PhotosPickerItem?
+    @State private var selectedImage: UIImage? = nil
+    @EnvironmentObject var viewModel: PostsViewModel
+    
+    var body: some View {
+        
+        PhotosPicker( selection: $selectedItem, matching: .images) {
+            
+            //make sure the user has a urlimage
+            
+            if let photo = selectedImage {
+                
+                Image(uiImage: photo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 300, height: 300)
+                    .onChange(of: selectedItem) { newItem in
+                        
+                        Task {
+                            await loadTransferable(from: newItem)
+                        }
+                        
+                    }
+                
+            }
+            //if user doesnt sign in with google
+            else {
+                
+                Image("addImage")
+                    .resizable()
+                    .frame(width:180,height:180)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .aspectRatio(contentMode: .fit)
+                    .onChange(of: selectedItem) { newItem in
+                        Task {
+                            await loadTransferable(from: newItem)
+                        }
+                        
+                        
+                    }
+                
+                
+                
+                
+                
+                
+                
+            }
+            
+        }
+    }
+    
+    @MainActor
+        private func loadTransferable(from item: PhotosPickerItem?) async {
+            do {
+                if let data = try? await item?.loadTransferable(type: Data.self) {
+                    if let uiImage = UIImage(data: data) {
+                        selectedImage = uiImage
+                        return
+                    }
+                }
+                print("Failed to load image")
+            }
+        }
+    
+}
+
 
 // Preview provider for SwiftUI canvas
 struct AddPostView_Previews: PreviewProvider {

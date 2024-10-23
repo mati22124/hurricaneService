@@ -41,6 +41,9 @@ struct DBPost: Codable, Identifiable, Hashable {
     let topic: String
     //let timeposted: String
     
+    let photoURL: String
+    let photoPath: String
+    
 }
 
 

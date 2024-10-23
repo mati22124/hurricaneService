@@ -6,7 +6,8 @@
 //
 
 import Foundation
-
+import SwiftUI
+import PhotosUI
 
 @MainActor
 final class PostsViewModel: ObservableObject {
@@ -27,15 +28,17 @@ final class PostsViewModel: ObservableObject {
     }
   
     //Create post
-    func createPost(title: String, body: String, topic: String)  throws {
+    func createPost(title: String, body: String, topic: String, photo: PhotosPickerItem)  async throws {
         
         guard let user = user else {
             return
         }
         
-        let post = DBPost(id: UUID().uuidString, title: title, body: body, author: user.email, topic: topic)
+        let post = DBPost(id: UUID().uuidString, title: title, body: body, author: user.email, topic: topic, photoURL: "", photoPath: "")
     
         try PostManager.shared.createNewPost(post: post)
+        
+        try await saveProfileImage(item: photo, postId: post.id)
         
         let usersPost = DBUsersPost(id: UUID().uuidString, userId: user.id, postId: post.id)
         
@@ -57,6 +60,42 @@ final class PostsViewModel: ObservableObject {
     
     
     
+    
+    
 }
 
 
+
+//Images
+
+extension PostsViewModel {
+    
+   
+    
+    func saveProfileImage(item:PhotosPickerItem, postId: String) async throws {
+        
+        
+            guard let data = try await item.loadTransferable(type: Data.self) else {return}
+
+            let (path,_) = try await StorageManager.shared.saveImage(data: data, postId: postId)
+
+            let url = try await StorageManager.shared.getURLForImage(path: path)
+
+            try await PostManager.shared.updatePhotoPost(postId: postId, path: path, url: url.absoluteString)
+      
+        
+        
+        
+        
+        
+    }
+    
+    
+ 
+    
+    
+    
+    
+    
+    
+}

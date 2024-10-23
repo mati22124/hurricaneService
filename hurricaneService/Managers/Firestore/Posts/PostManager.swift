@@ -56,6 +56,17 @@ extension PostManager {
         try  postDocument(postId: post.id).setData(from: post,merge: false)
         print("post in database created")
     }
+    
+    
+    func updatePhotoPost(postId: String, path: String, url: String) async throws {
+        let data:[String: Any] = [
+            
+            "photoURL":url,
+            "photoPath": path
+        ]
+        
+        try await postDocument(postId: postId).updateData(data)
+    }
 
 }
 

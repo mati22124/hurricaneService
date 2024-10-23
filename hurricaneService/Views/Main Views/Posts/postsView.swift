@@ -31,9 +31,22 @@ struct PostRowView: View {
             Text(post.title)
                 .font(.headline)
                 .lineLimit(3)
+            //Body
+            
             
             // Photo
-           
+            AsyncImage(url:URL(string:post.photoURL)) { image in
+                image
+                    .resizable()
+                    .frame(width:180,height:180)
+                    .aspectRatio(contentMode: .fit)
+                
+                
+            } placeholder: {
+                ProgressView()
+                    .frame(width:180,height:180)
+                    .shadow(radius: 4,y:4)
+            }
             
             // DM Button
         }
