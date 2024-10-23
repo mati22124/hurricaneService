@@ -12,7 +12,7 @@ import Foundation
 final class PostsViewModel: ObservableObject {
     
     @Published private(set) var user: DBUser? = nil
-    @Published private(set) var post: [DBPost] = []
+    @Published private(set) var posts: [DBPost] = []
 
 
     
@@ -27,8 +27,8 @@ final class PostsViewModel: ObservableObject {
     }
   
     //Create post
-    func createPost(title: String, body: String, author: String)  throws {
-        let post = DBPost(id: UUID().uuidString, title: title, body: body, author: author)
+    func createPost(title: String, body: String, author: String, topic: String)  throws {
+        let post = DBPost(id: UUID().uuidString, title: title, body: body, author: author, topic: topic)
         
         try PostManager.shared.createNewPost(post: post)
         
@@ -52,7 +52,7 @@ final class PostsViewModel: ObservableObject {
     
     //Get Posts
     func getAllPosts() async throws {
-        post = try await PostManager.shared.getAllPosts()
+        posts = try await PostManager.shared.getAllPosts()
     }
     
     

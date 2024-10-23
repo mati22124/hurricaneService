@@ -24,7 +24,7 @@ struct mainView: View {
                  5. settings
                  */
             case 0:
-                postsView()
+                PostsView()
             case 1:
                 NavigationStack {
                     NearbySheletersView()

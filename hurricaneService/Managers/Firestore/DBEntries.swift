@@ -38,6 +38,8 @@ struct DBPost: Codable, Identifiable, Hashable {
     let title: String
     let body: String
     let author: String
+    let topic: String
+    //let timeposted: String
     
 }
 
