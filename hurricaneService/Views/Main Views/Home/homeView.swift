@@ -19,10 +19,15 @@ struct NearbySheletersView: View {
             Color.darkPurp.ignoresSafeArea(.all)
             ScrollView {
                 ForEach(sortedShelters) { shelter in
-                    ShelterRow(shelter: shelter, accentColor: accentColor, curLoc: locManager.lastKnownLocation)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 5)
-                        .environmentObject(viewModel)
+                    NavigationLink {
+                        ShelterDetailView(shelter: shelter)
+                    } label: {
+                        ShelterRow(shelter: shelter, accentColor: accentColor, curLoc: locManager.lastKnownLocation)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 15)
+                            .environmentObject(viewModel)
+                    }
                 }
             }
         }
@@ -67,16 +72,16 @@ struct ShelterRow: View {
                 }
             }
             
-            Button(action: {
-                viewModel.openInMaps(coordinate: CLLocation(latitude: shelter.latitude, longitude: shelter.longitude), name: shelter.name)
-            }) {
-                Text("Open in Maps")
-                    .font(.custom("ProductSans-Bold", size: 14))
-                    .padding(8)
-                    .background(accentColor)
-                    .foregroundColor(.white)
-                    .cornerRadius(20)
-            }
+//            Button(action: {
+//                viewModel.openInMaps(coordinate: CLLocation(latitude: shelter.latitude, longitude: shelter.longitude), name: shelter.name)
+//            }) {
+//                Text("Open in Maps")
+//                    .font(.custom("ProductSans-Bold", size: 14))
+//                    .padding(8)
+//                    .background(accentColor)
+//                    .foregroundColor(.white)
+//                    .cornerRadius(20)
+//            }
         }
         .padding(.vertical, 20)
         .padding(.horizontal, 40)
