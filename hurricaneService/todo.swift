@@ -6,7 +6,7 @@
 //
 
 /*
- - when shelters finish add secondary view for more information
+ - add secondary view for more information
    - inbuilt map which when clicked opens maps
    - address
    - description
