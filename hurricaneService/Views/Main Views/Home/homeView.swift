@@ -9,7 +9,7 @@ struct NearbySheletersView: View {
     @StateObject var locManager = LocationManager()
     
     var sortedShelters: [Shelter] {
-        let distSorted = viewModel.shelters.sorted { viewModel.findDistance(current: locManager.lastKnownLocation, shelter: $0) < viewModel.findDistance(current: locManager.lastKnownLocation, shelter: $1) }
+        let distSorted = viewModel.shelters.sorted { viewModel.findNumDistance(current: locManager.lastKnownLocation, shelter: $0) < viewModel.findNumDistance(current: locManager.lastKnownLocation, shelter: $1) }
         let slice = distSorted.prefix(50)
         return Array(slice)
     }

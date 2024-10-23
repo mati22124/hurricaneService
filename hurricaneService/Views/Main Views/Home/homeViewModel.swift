@@ -25,6 +25,16 @@ final class homeViewModel: ObservableObject {
         return "\(milesRounded.formatted()) miles away"
     }
     
+    func findNumDistance(current currentLoc: CLLocation?, shelter: Shelter) -> Double {
+        let shelLoc = CLLocation(latitude: shelter.latitude, longitude: shelter.longitude)
+        let miles = shelLoc.distance(from: currentLoc ?? shelLoc)*0.00062137119224
+        if miles == 0  {
+            return 100000
+        }
+        let milesRounded = (miles*10).rounded()/10
+        return milesRounded
+    }
+    
     func openInMaps(coordinate: CLLocation, name: String) {
         let placemark = MKPlacemark(coordinate: coordinate.coordinate)
         let mapItem = MKMapItem(placemark: placemark)
