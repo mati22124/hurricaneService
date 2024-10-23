@@ -27,16 +27,16 @@ final class PostsViewModel: ObservableObject {
     }
   
     //Create post
-    func createPost(title: String, body: String, author: String, topic: String)  throws {
-        let post = DBPost(id: UUID().uuidString, title: title, body: body, author: author, topic: topic)
-        
-        try PostManager.shared.createNewPost(post: post)
+    func createPost(title: String, body: String, topic: String)  throws {
         
         guard let user = user else {
             return
         }
         
+        let post = DBPost(id: UUID().uuidString, title: title, body: body, author: user.email, topic: topic)
     
+        try PostManager.shared.createNewPost(post: post)
+        
         let usersPost = DBUsersPost(id: UUID().uuidString, userId: user.id, postId: post.id)
         
         try UserManager.shared.addUsersPost(userId: user.id, usersPost: usersPost)

@@ -16,7 +16,7 @@ struct PostRowView: View {
         VStack(alignment: .leading, spacing: 8) {
             // Header
             HStack {
-                Text("Topic: \(post.topic)")
+                Text("Topic - \(post.topic)")
                     .font(.subheadline)
                     .fontWeight(.bold)
                 Text("• Posted by u/\(post.author)")
@@ -50,7 +50,6 @@ struct PostRowView: View {
 // Main posts view
 struct PostsView: View {
     
-    
     @StateObject var postsViewModel = PostsViewModel()
     
     var body: some View {
@@ -65,18 +64,22 @@ struct PostsView: View {
             }
             .navigationTitle("Posts")
             .navigationBarTitleTextColor(.white)
-            .navigationBarItems(trailing: Button(action: {}) {
+            .navigationBarItems(trailing:
+            NavigationLink(destination:AddPostView().navigationBarBackButtonHidden(true)){
                 Image(systemName: "plus")
                     .foregroundStyle(.white)
-            })
+                }
+                
+            )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.darkPurp)
+            
             .task {
                 do {
-                    try await postsViewModel.loadCurrentUser()
+                   
                     try await postsViewModel.getAllPosts()
                 }catch {
-                    print("didn't get user or posts")
+                    print("didn't get posts")
                 }
             }
         }
