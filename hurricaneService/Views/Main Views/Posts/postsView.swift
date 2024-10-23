@@ -16,7 +16,7 @@ struct PostRowView: View {
         VStack(alignment: .leading, spacing: 8) {
             // Header
             HStack {
-                Text("r/\(post.topic)")
+                Text("Topic: \(post.topic)")
                     .font(.subheadline)
                     .fontWeight(.bold)
                 Text("• Posted by u/\(post.author)")
