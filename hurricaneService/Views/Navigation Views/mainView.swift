@@ -26,7 +26,7 @@ struct mainView: View {
             case 0:
                 PostsView()
             case 1:
-                stormBuddyView()
+                StormBuddyChatView()
             case 2:
                 NavigationStack {
                     NearbySheletersView()
