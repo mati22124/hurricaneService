@@ -25,6 +25,7 @@ struct PostRowView: View {
                     Text("• Posted by u/\(post.author)")
                         .font(.subheadline)
                         .foregroundColor(.gray)
+
                     Text(timeAgoSince(post.timeposted))
                         .font(.subheadline)
                         .foregroundColor(.gray)
