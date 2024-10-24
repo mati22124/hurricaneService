@@ -89,12 +89,12 @@ struct TabBarItem: View {
             HStack(spacing: 10) {
                 Image(systemName: imageName)
                     .font(.system(size: 20))
-                    .foregroundStyle(.textColo)
+                    .foregroundStyle(isSelected ? .white : .textColo)
                 if isSelected {
                     Text(title)
                         .font(.caption)
                         .fontWeight(.bold)
-                        .foregroundStyle(.textColo)
+                        .foregroundStyle(.white)
                 }
             }
             .foregroundColor(isSelected ? .white : .gray)
