@@ -25,7 +25,7 @@ struct PostRowView: View {
                     Text("• Posted by u/\(post.author)")
                         .font(.subheadline)
                         .foregroundColor(.gray)
-                    Text("2h ago")
+                    Text(timeAgoSince(post.timeposted))
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
@@ -36,7 +36,10 @@ struct PostRowView: View {
                     .font(.headline)
                     .lineLimit(3)
                 //Body
-                
+                Text(post.title)
+                    .foregroundStyle(.black)
+                    .font(.footnote)
+                    .lineLimit(3)
                 
                 // Photo
                 AsyncImage(url:URL(string:post.photoURL)) { image in
@@ -60,6 +63,13 @@ struct PostRowView: View {
             .shadow(radius: 2)
         }
     }
+    
+    func timeAgoSince(_ date: Date) -> String {
+           let formatter = RelativeDateTimeFormatter()
+           formatter.unitsStyle = .full  // Options: .short, .full, etc.
+           return formatter.localizedString(for: date, relativeTo: Date())
+    }
+    
 }
 
 

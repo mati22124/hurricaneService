@@ -5,6 +5,8 @@
 //  Created by Suraj Nistala on 10/20/24.
 //
 
+import SwiftUI
+
 
 struct DBUser: Codable, Identifiable, Hashable {
     let id: String
@@ -39,7 +41,7 @@ struct DBPost: Codable, Identifiable, Hashable {
     let body: String
     let author: String
     let topic: String
-    //let timeposted: String
+    let timeposted: Date
     
     let photoURL: String
     let photoPath: String

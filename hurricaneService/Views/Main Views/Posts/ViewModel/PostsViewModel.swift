@@ -34,7 +34,7 @@ final class PostsViewModel: ObservableObject {
             return
         }
         
-        let post = DBPost(id: UUID().uuidString, title: title, body: body, author: user.email, topic: topic, photoURL: "", photoPath: "")
+        let post = DBPost(id: UUID().uuidString, title: title, body: body, author: user.email, topic: topic, timeposted: Date(), photoURL: "", photoPath: "")
     
         try PostManager.shared.createNewPost(post: post)
         
