@@ -26,14 +26,16 @@ struct mainView: View {
             case 0:
                 PostsView()
             case 1:
+                stormBuddyView()
+            case 2:
                 NavigationStack {
                     NearbySheletersView()
                         .navigationTitle("Nearby Sheleters")
                         .navigationBarTitleTextColor(.white)
                 }
-            case 2:
-                mapView()
             case 3:
+                mapView()
+            case 4:
                 SettingsView(showLoginView: $showLoginView)
             default:
                 Text("idk how u got here but thats impressive")
@@ -41,7 +43,7 @@ struct mainView: View {
             
             // Custom capsule-shaped tab bar
             HStack {
-                ForEach(0..<4) { index in
+                ForEach(0..<5) { index in
                     TabBarItem(imageName: getImageName(for: index),
                                title: getTitle(for: index),
                                isSelected: selectedTab == index,
@@ -60,9 +62,10 @@ struct mainView: View {
     func getImageName(for index: Int) -> String {
         switch index {
         case 0: return "camera.aperture"
-        case 1: return "house.fill"
-        case 2: return "map.fill"
-        case 3: return "gear"
+        case 1: return "message"
+        case 2: return "house.fill"
+        case 3: return "map.fill"
+        case 4: return "gear"
         default: return ""
         }
     }
@@ -70,9 +73,10 @@ struct mainView: View {
     func getTitle(for index: Int) -> String {
         switch index {
         case 0: return "Posts"
-        case 1: return "Home"
-        case 2: return "Map"
-        case 3: return "Settings"
+        case 1: return "Storm Buddy"
+        case 2: return "Home"
+        case 3: return "Map"
+        case 4: return "Settings"
         default: return ""
         }
     }
