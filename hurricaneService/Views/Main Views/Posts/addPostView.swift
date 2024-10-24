@@ -22,44 +22,84 @@ struct AddPostView: View {
     
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Post Details")) {
-                    TextField("Title", text: $postTitle)
-                        .padding(.vertical, 8)
-                    
-                    TextEditor(text: $postContent)
-                        .frame(height: 150)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-                        )
-                    
-                    //Post
-                    AddImageView(selectedItem: $selectedPhoto)
-                        .environmentObject(postsViewModel)
-                }
-                .task {
-                    do {
-                        //dont need to just safe
-                        try await postsViewModel.loadCurrentUser()
-                        
-                    }catch {
-                        print("couldn't get user")
-                    }
-                }
+            ZStack {
+                Color.darkPurp.ignoresSafeArea(.all)
+                ScrollView {
+                            VStack(alignment: .leading, spacing: 20) {
+                                // Title Section
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("Title")
+                                        .foregroundColor(.white)
+                                        .font(.headline)
+                                    
+                                    TextField("Enter your post title...", text: $postTitle)
+                                        .textFieldStyle(CustomTextFieldStyle())
+                                }
+                                
+                                // Content Section
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("Content")
+                                        .foregroundColor(.white)
+                                        .font(.headline)
+                                    
+                                    TextEditor(text: $postContent)
+                                        .scrollContentBackground(.hidden)
+                                        .frame(minHeight: 150)
+                                        .padding(10)
+                                        .background(Color.darkPurp.opacity(0.3))
+                                        .cornerRadius(12)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .stroke(Color.white.opacity(0.3), lineWidth: 2)
+                                        )
+                                }
+                                
+                                // Image Section
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("Image")
+                                        .foregroundColor(.white)
+                                        .font(.headline)
+                                    
+                                    AddImageView(selectedItem: $selectedPhoto)
+                                        .environmentObject(postsViewModel)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 10)
+                                }
+                            }
+                            .padding(20)
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(Color.darkPurp.opacity(0.5))
+                                    .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                            )
+                            .padding(.horizontal)
+                        }
+                        .task {
+                            do {
+                                try await postsViewModel.loadCurrentUser()
+                            } catch {
+                                print("couldn't get user")
+                            }
+                        }
+                .navigationTitle("New Post")
+                .navigationBarItems(
+                    leading: Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "cross")
+                            .foregroundStyle(.white)
+                            .rotationEffect(.degrees(45))
+                    },
+                    trailing: Button(action: {
+                        submitPost()
+                    }, label: {
+                        Image(systemName: "paperplane")
+                            .foregroundStyle(.white)
+                    })
+                    .disabled(postTitle.isEmpty || postContent.isEmpty)
+                )
+                .navigationBarTitleTextColor(.textColo)
             }
-            .navigationTitle("New Post")
-            .navigationBarItems(
-                leading: Button("Cancel") {
-                    dismiss()
-                },
-                trailing: Button("Post") {
-                    submitPost()
-                }
-                .disabled(postTitle.isEmpty || postContent.isEmpty)
-            )
-            
-            
         }
     }
     
@@ -103,30 +143,26 @@ struct AddImageView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 300, height: 300)
-                    .onChange(of: selectedItem) { newItem in
-                        
+                    .onChange(of: selectedItem, { _, newItem in
                         Task {
                             await loadTransferable(from: newItem)
                         }
-                        
-                    }
+                    })
                 
             }
-            //if user doesnt sign in with google
             else {
                 
-                Image("addImage")
+                Image(systemName: "photo")
                     .resizable()
-                    .frame(width:180,height:180)
+                    .frame(width:90,height:75)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     .aspectRatio(contentMode: .fit)
-                    .onChange(of: selectedItem) { newItem in
+                    .foregroundStyle(.textColo)
+                    .onChange(of: selectedItem, { _, newItem in
                         Task {
                             await loadTransferable(from: newItem)
                         }
-                        
-                        
-                    }
+                    })
                 
                 
                 
@@ -154,6 +190,20 @@ struct AddImageView: View {
     
 }
 
+
+// Custom TextField Style
+struct CustomTextFieldStyle: TextFieldStyle {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .padding(12)
+            .background(Color.darkPurp.opacity(0.3))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.white.opacity(0.3), lineWidth: 2)
+            )
+    }
+}
 
 // Preview provider for SwiftUI canvas
 struct AddPostView_Previews: PreviewProvider {

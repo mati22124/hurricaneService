@@ -16,29 +16,32 @@ struct PostRowView: View {
         NavigationLink(destination:InstagramDMView(name: post.author).navigationBarBackButtonHidden(true)) {
             VStack(alignment: .leading, spacing: 8) {
                 // Header
-                HStack {
-                    Text("Topic - \(post.topic)")
-                        .foregroundStyle(.black)
+                VStack {
+                    Text("Posted by \(post.author)")
                         .font(.subheadline)
+                        .foregroundColor(.gray)
                         .fontWeight(.bold)
-                        
-                    Text("• Posted by u/\(post.author)")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-
-                    Text(timeAgoSince(post.timeposted))
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+                    HStack {
+                        Text("Topic - \(post.topic)")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Text("•")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Text(timeAgoSince(post.timeposted))
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                    }
                 }
                 
                 // Title
                 Text(post.title)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.textColo)
                     .font(.headline)
                     .lineLimit(3)
                 //Body
                 Text(post.title)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.textColo)
                     .font(.footnote)
                     .lineLimit(3)
                 
@@ -63,6 +66,7 @@ struct PostRowView: View {
             .cornerRadius(8)
             .shadow(radius: 2)
         }
+        .padding(.top, 20)
     }
     
     func timeAgoSince(_ date: Date) -> String {
@@ -92,14 +96,14 @@ struct PostsView: View {
                 .padding(.horizontal)
             }
             .navigationTitle("Posts")
-            .navigationBarTitleTextColor(.white)
             .navigationBarItems(trailing:
-            NavigationLink(destination:AddPostView().navigationBarBackButtonHidden(true)){
+                                    NavigationLink(destination:AddPostView().navigationBarBackButtonHidden(true)){
                 Image(systemName: "plus")
                     .foregroundStyle(.white)
                 }
                 
             )
+            .navigationBarTitleTextColor(.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.darkPurp)
             
