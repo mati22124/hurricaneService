@@ -13,47 +13,52 @@ struct PostRowView: View {
     let post: DBPost
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            // Header
-            HStack {
-                Text("Topic - \(post.topic)")
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                Text("• Posted by u/\(post.author)")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Text("2h ago")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-            }
-            
-            // Title
-            Text(post.title)
-                .font(.headline)
-                .lineLimit(3)
-            //Body
-            
-            
-            // Photo
-            AsyncImage(url:URL(string:post.photoURL)) { image in
-                image
-                    .resizable()
-                    .frame(width:180,height:180)
-                    .aspectRatio(contentMode: .fit)
+        NavigationLink(destination:InstagramDMView(name: post.author).navigationBarBackButtonHidden(true)) {
+            VStack(alignment: .leading, spacing: 8) {
+                // Header
+                HStack {
+                    Text("Topic - \(post.topic)")
+                        .foregroundStyle(.black)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                        
+                    Text("• Posted by u/\(post.author)")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    Text("2h ago")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                
+                // Title
+                Text(post.title)
+                    .foregroundStyle(.black)
+                    .font(.headline)
+                    .lineLimit(3)
+                //Body
                 
                 
-            } placeholder: {
-                ProgressView()
-                    .frame(width:180,height:180)
-                    .shadow(radius: 4,y:4)
+                // Photo
+                AsyncImage(url:URL(string:post.photoURL)) { image in
+                    image
+                        .resizable()
+                        .frame(width:180,height:180)
+                        .aspectRatio(contentMode: .fit)
+                    
+                    
+                } placeholder: {
+                    ProgressView()
+                        .frame(width:180,height:180)
+                        .shadow(radius: 4,y:4)
+                }
+                
+                // DM Button
             }
-            
-            // DM Button
+            .padding()
+            .background(Color(.systemBackground))
+            .cornerRadius(8)
+            .shadow(radius: 2)
         }
-        .padding()
-        .background(Color(.systemBackground))
-        .cornerRadius(8)
-        .shadow(radius: 2)
     }
 }
 
