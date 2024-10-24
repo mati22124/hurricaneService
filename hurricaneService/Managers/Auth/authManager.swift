@@ -42,7 +42,7 @@ final class authManager {
     }
     
     func deleteAccount() async throws {
-        guard let x = Auth.auth().currentUser else { throw authError.noUser }
+        guard let _ = Auth.auth().currentUser else { throw authError.noUser }
         try await Auth.auth().currentUser!.delete()
     }
     

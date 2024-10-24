@@ -32,8 +32,8 @@ struct ShelterDetailView: View {
             ScrollView {
                 VStack(spacing: 5) {
                     // Map View
-                    Map(coordinateRegion: $region, annotationItems: [shelter]) { shelter in
-                        MapMarker(coordinate: CLLocationCoordinate2D(
+                    Map(initialPosition:                     MapCameraPosition.region(region)){
+                        Marker("", coordinate: CLLocationCoordinate2D(
                             latitude: shelter.latitude,
                             longitude: shelter.longitude
                         ))
