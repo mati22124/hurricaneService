@@ -55,7 +55,7 @@ struct InstagramDMView: View {
                
             }
             .padding()
-            .background(Color(UIColor.systemBackground))
+            .background(Color.darkPurp)
             .shadow(color: Color.black.opacity(0.1), radius: 1, y: 1)
             
             // Messages
@@ -67,6 +67,7 @@ struct InstagramDMView: View {
                 }
                 .padding()
             }
+            .background(Color.darkPurp)
             
             // Message input
             HStack(spacing: 12) {
@@ -78,7 +79,7 @@ struct InstagramDMView: View {
                 
                 TextField("Message...", text: $messageText)
                     .padding(8)
-                    .background(Color(UIColor.systemGray6))
+                    .background(Color.lightPurp)
                     .cornerRadius(20)
                 
                 if messageText.isEmpty {
@@ -97,7 +98,7 @@ struct InstagramDMView: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 8)
-            .background(Color(UIColor.systemBackground))
+            .background(Color.darkPurp)
         }
     }
     

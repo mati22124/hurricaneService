@@ -40,7 +40,7 @@ struct PostRowView: View {
                     .font(.headline)
                     .lineLimit(3)
                 //Body
-                Text(post.title)
+                Text(post.body)
                     .foregroundStyle(.textColo)
                     .font(.footnote)
                     .lineLimit(3)
@@ -62,6 +62,7 @@ struct PostRowView: View {
                 // DM Button
             }
             .padding()
+            .padding(.horizontal, 10)
             .background(Color(.systemBackground))
             .cornerRadius(8)
             .shadow(radius: 2)
@@ -93,7 +94,7 @@ struct PostsView: View {
                         PostRowView(post: post)
                     }
                 }
-                .padding(.horizontal)
+                .padding(.horizontal,30)
             }
             .navigationTitle("Posts")
             .navigationBarItems(trailing:
