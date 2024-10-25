@@ -36,12 +36,12 @@ struct PostRowView: View {
                 
                 // Title
                 Text(post.title)
-                    .foregroundStyle(.textColo)
+                    .foregroundStyle(.black)
                     .font(.headline)
                     .lineLimit(3)
                 //Body
                 Text(post.body)
-                    .foregroundStyle(.textColo)
+                    .foregroundStyle(.black)
                     .font(.footnote)
                     .lineLimit(3)
                 
@@ -63,7 +63,7 @@ struct PostRowView: View {
             }
             .padding()
             .padding(.horizontal, 10)
-            .background(Color(.systemBackground))
+            .background(Color.white)
             .cornerRadius(8)
             .shadow(radius: 2)
         }

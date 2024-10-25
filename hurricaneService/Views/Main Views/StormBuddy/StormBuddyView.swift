@@ -22,7 +22,7 @@ struct ChatBubble: View {
                 Text(message.content)
                     .padding(12)
                     .background(message.isUser ? Color.blue : Color.gray.opacity(0.2))
-                    .foregroundColor(message.isUser ? .white : .primary)
+                    .foregroundColor(.white/*message.isUser ? .white : .primary*/)
                     .cornerRadius(16)
                 
                 Text(formatDate(message.timestamp))
@@ -61,14 +61,15 @@ struct StormBuddyChatView: View {
             // Navigation bar
             HStack {
                 Image(systemName: "cloud.bolt.fill")
-                    .foregroundColor(.blue)
+                    .foregroundColor(.white)
                     .font(.title2)
                 Text("Storm Buddy")
                     .font(.headline)
+                    .foregroundStyle(.white)
                 Spacer()
             }
             .padding()
-            .background(Color.white)
+            .background(Color.darkPurp)
             .shadow(radius: 1)
             
             // Chat messages
@@ -85,6 +86,7 @@ struct StormBuddyChatView: View {
             HStack {
                 TextField("Type a message...", text: $messageText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .colorScheme(.light)
                     .padding(.horizontal)
                 
                 Button {
@@ -97,13 +99,13 @@ struct StormBuddyChatView: View {
                 } label: {
                     Image(systemName: "arrow.up.circle.fill")
                         .font(.title2)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.white)
                 }
                 .padding(.trailing)
                 .disabled(messageText.isEmpty)
             }
             .padding(.vertical)
-            .background(Color.white)
+            .background(Color.darkPurp)
             .shadow(radius: 1)
         }
     }

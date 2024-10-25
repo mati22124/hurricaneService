@@ -98,7 +98,7 @@ struct AddPostView: View {
                     })
                     .disabled(postTitle.isEmpty || postContent.isEmpty)
                 )
-                .navigationBarTitleTextColor(.textColo)
+                .navigationBarTitleTextColor(.white)
             }
         }
     }
@@ -157,7 +157,7 @@ struct AddImageView: View {
                     .frame(width:90,height:75)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     .aspectRatio(contentMode: .fit)
-                    .foregroundStyle(.textColo)
+                    .foregroundStyle(.white)
                     .onChange(of: selectedItem, { _, newItem in
                         Task {
                             await loadTransferable(from: newItem)
