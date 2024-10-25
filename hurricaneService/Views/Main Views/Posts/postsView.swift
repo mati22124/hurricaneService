@@ -49,15 +49,15 @@ struct PostRowView: View {
                 AsyncImage(url:URL(string:post.photoURL)) { image in
                     image
                         .resizable()
-                        .frame(width:180,height:180)
+                        .frame(width:280,height:280)
                         .aspectRatio(contentMode: .fit)
                     
                     
                 } placeholder: {
                     ProgressView()
-                        .frame(width:180,height:180)
+                        .frame(width:280,height:280)
                         .shadow(radius: 4,y:4)
-                }
+                }.frame(maxWidth: .infinity, alignment: .center)
                 
                 // DM Button
             }
