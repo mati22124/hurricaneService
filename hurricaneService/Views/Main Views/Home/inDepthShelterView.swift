@@ -41,6 +41,7 @@ struct ShelterDetailView: View {
                     .frame(height: 200)
                     .cornerRadius(16)
                     .padding(.horizontal, 20)
+                    .padding(.top, 20)
                     
                     VStack(spacing: 24) {
                         // Header Section

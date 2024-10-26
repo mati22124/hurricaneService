@@ -10,7 +10,7 @@ import SwiftUI
 struct mainView: View {
     @Binding var showLoginView: Bool
     
-    @State private var selectedTab: Int = 0
+    @State private var selectedTab: Int = 2
 
     var body: some View {
         VStack {
